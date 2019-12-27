@@ -4,19 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
-{
-    [SerializeField]
-    private float mvSpeed;
+{ 
     [SerializeField]
     private Text height;
 
     private void Start()
     {
-        GetComponent<Rigidbody2D>().velocity = Vector2.up * mvSpeed;
+        GameManager.Instance.StartGame += () =>
+        {
+            GetComponent<Rigidbody2D>().velocity = Vector2.up * GameManager.Instance.MvSpeed;
+        };
     }
 
     private void Update()
     {
         height.text = ((int)transform.position.y).ToString();
+        GameManager.Instance.height = (int)transform.position.y;
     }
 }

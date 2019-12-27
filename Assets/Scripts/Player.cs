@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private readonly int DEC_ENERGY = 1;
 
     [SerializeField]
-    private float mvSpeed, slideSpeed;
+    private float slideSpeed;
     [SerializeField]
     private Slider energy_bar;
         
@@ -19,8 +19,13 @@ public class Player : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.up * mvSpeed;
         energy = MAX_ENERGY;
+        GameManager.Instance.StartGame += () =>
+        {
+            rb.velocity = Vector2.up * GameManager.Instance.MvSpeed;
+            GetComponentInChildren<Animator>().SetTrigger("Fly");
+            //GetComponent<Animator>().SetTrigger("Fly");
+        };
     }
 
     private void Update()
@@ -28,15 +33,18 @@ public class Player : MonoBehaviour
         energy_bar.value = (float) energy / MAX_ENERGY;
         if (energy <= 0)
         {
-            //game over
+            GameManager.Instance.GameOver();
         }
     }
 
     private void FixedUpdate()
     {
-        energy -= DEC_ENERGY;
+        if (!GameManager.Instance.StartFlag) return;
+        var rate = Input.GetKey(KeyCode.LeftShift) ? 2 : 1;
+
+        energy -= DEC_ENERGY * rate;
         var x = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(x * slideSpeed, mvSpeed);
+        rb.velocity = new Vector2(x * slideSpeed, GameManager.Instance.MvSpeed) * rate;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,7 +52,12 @@ public class Player : MonoBehaviour
         if(collision.tag == "Food")
         {
             energy += collision.GetComponent<Food>().Value;
+            energy = energy > MAX_ENERGY ? MAX_ENERGY : energy;
             Destroy(collision.gameObject);
+        }
+        else if(collision.tag == "Finish")
+        {
+            GameManager.Instance.GameOver();
         }
     }
 }
