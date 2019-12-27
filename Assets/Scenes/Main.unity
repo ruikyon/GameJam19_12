@@ -260,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314976857}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12, y: 0, z: 0}
+  m_LocalPosition: {x: -10, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 1252334785}
@@ -1193,8 +1193,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 70, y: 25}
-  m_SizeDelta: {x: 140, y: 50}
+  m_AnchoredPosition: {x: 70, y: 20}
+  m_SizeDelta: {x: 140, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &798271878
 MonoBehaviour:
@@ -1338,7 +1338,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170364541}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12, y: 0, z: 0}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 1252334785}
@@ -2140,6 +2140,7 @@ MonoBehaviour:
   foods:
   - {fileID: 4233341878479752346, guid: 58fce1f7579284d28b9e3e602ce8453b, type: 3}
   - {fileID: 8416748253331892477, guid: 456ff135fa0b545979ae05e2eb00733c, type: 3}
+  - {fileID: 8264452376921778251, guid: 13df91b6989df4bfa8b6de901adadfec, type: 3}
   obstaclePrefab: {fileID: 6912785280237362751, guid: 96370f06560b647c185948a108e703b1,
     type: 3}
 --- !u!114 &1886449048

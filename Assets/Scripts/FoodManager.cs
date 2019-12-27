@@ -8,6 +8,7 @@ public class FoodManager : MonoBehaviour
 
     [SerializeField]
     private Food[] foods;
+    private List<Food> activeFoods;
     [SerializeField]
     private GameObject obstaclePrefab;
     private int level, nextLine, foodCount, obstacleCount;
@@ -22,6 +23,8 @@ public class FoodManager : MonoBehaviour
         nextLine = 10;
         foodCount = 2;
         obstacleCount = 1;
+        activeFoods = new List<Food>();
+        activeFoods.Add(foods[0]);
 
         foodPos = new List<int>();
         for (int i = 0; i < 15; i++)
@@ -37,12 +40,6 @@ public class FoodManager : MonoBehaviour
         };
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void LevelUp()
     {
         level++;
@@ -50,12 +47,15 @@ public class FoodManager : MonoBehaviour
 
     private void SetObject()
     {
+        var parent = new GameObject("tmp");
+        Scheduler.AddEvent(15, () => Destroy(parent));
+
         for(int i = 0; i < 20; i++)
         {
             if (i % 4 == 3)
             {
                 //障害物配置
-                var obstacles = Instantiate(obstaclePrefab);
+                var obstacles = Instantiate(obstaclePrefab, parent.transform);
                 obstacles.transform.position = Vector2.up * (nextLine + i);
                 
                 var pos = Choice(obstaclePos, obstacleCount);
@@ -70,16 +70,40 @@ public class FoodManager : MonoBehaviour
                 var positions = Choice(foodPos, foodCount);
                 foreach(int pos in positions)
                 {
-                    var tmp = Instantiate(foods[0]);
+                    var tmp = Instantiate(activeFoods[Random.Range(0, activeFoods.Count)], parent.transform);
                     tmp.transform.position = new Vector2(pos, nextLine + i);
                 }
             }
         }
         nextLine += 20;
         //Debug.Log(nextLine%200);
-        if((nextLine-10)%40 == 0)
-        {        
-            obstacleCount++;
+        if((nextLine-10)%20 == 0)
+        {
+            level++;
+            switch (level)
+            {
+                case 1:
+                    obstacleCount++;
+                    break;
+                case 2:
+                    foodCount--;
+                    break;
+                case 3:
+                    obstacleCount++;
+                    foodCount++;
+                    activeFoods[0] = foods[1];
+                    activeFoods.Add(foods[2]);
+                    break;
+                case 5:
+                    activeFoods[1] = foods[0];
+                    break;
+                case 7:
+                    activeFoods.RemoveAt(1);
+                    break;
+                case 10:
+                    activeFoods[0] = foods[0];
+                    break;
+            }
         }
 
         Scheduler.AddEvent(5, SetObject);
