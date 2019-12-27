@@ -99,9 +99,11 @@ public class FoodManager : MonoBehaviour
                     break;
                 case 7:
                     activeFoods.RemoveAt(1);
+                    activeFoods[0] = foods[2];
+                    foodCount--;
                     break;
                 case 10:
-                    activeFoods[0] = foods[0];
+                    activeFoods[0] = foods[1];
                     break;
             }
         }
