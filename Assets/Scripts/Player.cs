@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Slider energy_bar;
     [SerializeField]
+    private AudioClip hungry_1, hungry_2;
+    [SerializeField]
     private AudioSource hungry;
         
     private Rigidbody2D rb;
@@ -45,13 +47,20 @@ public class Player : MonoBehaviour
         var rate = Input.GetKey(KeyCode.LeftShift) ? 2 : 1;
 
         var flag = energy > (MAX_ENERGY / 2);
-        Debug.Log(flag);
+        var flag2 = energy > (MAX_ENERGY / 4);
         energy -= DEC_ENERGY * rate;
         if(flag && !(energy > (MAX_ENERGY / 2)))
         {
-            Debug.Log("check");
-            hungry.PlayOneShot(hungry.clip);
+            Debug.Log(energy);
+
+            hungry.PlayOneShot(hungry_2);
         }
+        if (flag2 && !(energy > (MAX_ENERGY / 4)))
+        {
+            Debug.Log(energy);
+            hungry.PlayOneShot(hungry_1);
+        }
+
 
         var x = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(x * slideSpeed, GameManager.Instance.MvSpeed) * rate;

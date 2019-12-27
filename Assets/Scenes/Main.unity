@@ -275,7 +275,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 15ec8ae4a3c7c424ea2a7876c8cb5683, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2340,6 +2340,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideSpeed: 5
   energy_bar: {fileID: 1863625093}
+  hungry_1: {fileID: 8300000, guid: 15ec8ae4a3c7c424ea2a7876c8cb5683, type: 3}
+  hungry_2: {fileID: 8300000, guid: ba345899d189a4d4a9aea79dd8cbc1f8, type: 3}
   hungry: {fileID: 228140776}
 --- !u!1 &2053397488
 GameObject:
